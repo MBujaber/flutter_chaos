@@ -42,7 +42,7 @@ class LoginPage extends StatelessWidget {
 
                 if (success) {
                   context.pop();
-                  print("login success");
+                  print("login successful"); // for testing
                 } else
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

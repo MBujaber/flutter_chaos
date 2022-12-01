@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
           ),
           ElevatedButton(
               child: Text("logout"),
-              onPressed: () => context.read<AuthProvider>().logout),
+              onPressed: () => context.read<AuthProvider>().logout()),
         ],
       ),
     );

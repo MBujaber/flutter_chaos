@@ -22,12 +22,11 @@ class AuthProvider extends ChangeNotifier {
 
       Client.dio.options.headers[HttpHeaders.authorizationHeader] =
           "Bearer $token";
-      print(token);
       this.username = username;
 
       var pref = await SharedPreferences.getInstance();
       await pref.setString("token", token);
-      print('GONE');
+      print('register successfully');
       return true;
     } on DioError catch (e) {
       print(e.response!.data);
@@ -43,11 +42,13 @@ class AuthProvider extends ChangeNotifier {
     var token = pref.getString("token");
 
     if (token == null || JwtDecoder.isExpired(token)) {
+      print('removed token'); // for testing
       return false;
     }
 
     var tokenMap = JwtDecoder.decode(token);
     username = tokenMap['username'];
+    print(username); // for testing
     return true;
   }
 
@@ -72,7 +73,8 @@ class AuthProvider extends ChangeNotifier {
 
   void logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove("access");
+    prefs.remove("token");
+    this.hasToken(); // for testing
     // token = "";
     notifyListeners();
   }
