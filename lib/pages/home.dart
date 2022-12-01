@@ -7,12 +7,23 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Home'),
-        ),
-        body: ElevatedButton(
-          child: Text("Register"),
-          onPressed: () => context.push('/register'),
-        ));
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: Column(
+        children: [
+          Center(
+            child: ElevatedButton(
+              onPressed: () => context.push('/login'),
+              child: Text("login"),
+            ),
+          ),
+          ElevatedButton(
+            child: Text("Register"),
+            onPressed: () => context.push('/register'),
+          )
+        ],
+      ),
+    );
   }
 }

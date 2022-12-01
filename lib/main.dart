@@ -1,4 +1,5 @@
 import 'package:chaos_app/pages/home.dart';
+import 'package:chaos_app/pages/login_page.dart';
 import 'package:chaos_app/pages/register_page.dart';
 import 'package:chaos_app/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,10 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/register',
           builder: (context, state) => RegisterPage(),
+        ),
+        GoRoute(
+          path: '/login',
+          builder: (context, state) => LoginPage(),
         ),
       ],
     );

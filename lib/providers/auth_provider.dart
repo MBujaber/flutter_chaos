@@ -50,4 +50,23 @@ class AuthProvider extends ChangeNotifier {
     username = tokenMap['username'];
     return true;
   }
+
+  Future<bool> login(
+      {required String username, required String password}) async {
+    late String token;
+    try {
+      Response response = await Client.dio.post('login/', data: {
+        "username": username,
+        "password": password,
+      });
+      token = response.data["access"];
+      Client.dio.options.headers["Authorization"] = "Bearer $token";
+      var ref = await SharedPreferences.getInstance();
+      ref.setString("token", token);
+      return true;
+    } on DioError catch (error) {
+      print(error);
+    }
+    return false;
+  }
 }

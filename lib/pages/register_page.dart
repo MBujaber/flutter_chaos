@@ -80,7 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             username: usernameController.text,
                             password: passwordController.text);
                     if (didRegister) {
-                      context.go("/");
+                      context.pop();
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
