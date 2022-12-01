@@ -18,11 +18,11 @@ class AuthProvider extends ChangeNotifier {
         'password': password,
       });
 
-      var token = response.data["token"];
+      var token = response.data["access"];
 
       Client.dio.options.headers[HttpHeaders.authorizationHeader] =
           "Bearer $token";
-
+      print(token);
       this.username = username;
 
       var pref = await SharedPreferences.getInstance();
