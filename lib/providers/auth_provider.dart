@@ -69,4 +69,11 @@ class AuthProvider extends ChangeNotifier {
     }
     return false;
   }
+
+  void logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove("access");
+    // token = "";
+    notifyListeners();
+  }
 }

@@ -50,7 +50,6 @@ class LoginPage extends StatelessWidget {
                       content: Text("login unsuccessful"),
                     ),
                   );
-                print("login not success");
               },
               child: const Text("Login"),
             )

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/auth_provider.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -21,7 +24,10 @@ class Home extends StatelessWidget {
           ElevatedButton(
             child: Text("Register"),
             onPressed: () => context.push('/register'),
-          )
+          ),
+          ElevatedButton(
+              child: Text("logout"),
+              onPressed: () => context.read<AuthProvider>().logout),
         ],
       ),
     );
