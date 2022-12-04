@@ -70,30 +70,32 @@ class _RegisterPageState extends State<RegisterPage> {
                   return null;
                 },
               ),
-              Spacer(),
-              ElevatedButton(
-                onPressed: () async {
-                  if (formKey.currentState!.validate()) {
-                    var didRegister = await context
-                        .read<AuthProvider>()
-                        .register(
-                            username: usernameController.text,
-                            password: passwordController.text);
-                    if (didRegister) {
-                      context.pop();
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 22),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if (formKey.currentState!.validate()) {
+                      var didRegister = await context
+                          .read<AuthProvider>()
+                          .register(
+                              username: usernameController.text,
+                              password: passwordController.text);
+                      if (didRegister) {
+                        context.pop();
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.red,
+                            content: Text("Registration unsuccessful"),
+                          ),
+                        );
+                      }
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: Colors.red,
-                          content: Text("Registration unsuccessful"),
-                        ),
-                      );
+                      print("form not valid");
                     }
-                  } else {
-                    print("form not valid");
-                  }
-                },
-                child: Text("Register"),
+                  },
+                  child: Text("Register"),
+                ),
               ),
             ]),
           ),
