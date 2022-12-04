@@ -73,7 +73,7 @@ class AuthProvider extends ChangeNotifier {
 
   void logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove("token");
+    await prefs.remove("token");
     this.hasToken(); // for testing
     // token = "";
     notifyListeners();
