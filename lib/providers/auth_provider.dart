@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../client.dart';
+import '../services/client.dart';
 
 class AuthProvider extends ChangeNotifier {
   String? username;

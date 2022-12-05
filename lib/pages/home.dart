@@ -35,6 +35,14 @@ class _HomeState extends State<Home> {
           ElevatedButton(
               child: Text("logout"),
               onPressed: () => context.read<AuthProvider>().logout()),
+          ElevatedButton(
+            child: Text("Category"),
+            onPressed: () => context.push('/category'),
+          ),
+          ElevatedButton(
+            child: Text("Recipe"),
+            onPressed: () => context.push('/recipe'),
+          ),
         ],
       ),
     );
