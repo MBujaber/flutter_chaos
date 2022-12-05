@@ -6,6 +6,7 @@ import 'package:chaos_app/pages/recipe_page.dart';
 import 'package:chaos_app/pages/register_page.dart';
 import 'package:chaos_app/providers/auth_provider.dart';
 import 'package:chaos_app/providers/category_provider.dart';
+import 'package:chaos_app/providers/my_recipe_provider.dart';
 import 'package:chaos_app/providers/recipe_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -21,49 +22,47 @@ void main() async {
 
   runApp(MyApp(
     authProvider: authProvider,
-    initialRoute: '/',
   ));
 }
 
+final router = GoRouter(
+  initialLocation: '/category',
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => Home(),
+    ),
+    GoRoute(
+      path: '/register',
+      builder: (context, state) => RegisterPage(),
+    ),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => LoginPage(),
+    ),
+    GoRoute(
+      path: '/category',
+      builder: (context, state) => CategoryPage(),
+    ),
+    GoRoute(
+      path: '/recipe',
+      builder: (context, state) => RecipePage(),
+    ),
+    GoRoute(
+      path: '/myrecipe',
+      builder: (context, state) => MyRecipePage(),
+    ),
+  ],
+);
+
 class MyApp extends StatelessWidget {
-  final String initialRoute;
   final AuthProvider authProvider;
   MyApp({
     required this.authProvider,
-    required this.initialRoute,
   });
 
   @override
   Widget build(BuildContext context) {
-    final router = GoRouter(
-      initialLocation: initialRoute,
-      routes: [
-        GoRoute(
-          path: '/',
-          builder: (context, state) => Home(),
-        ),
-        GoRoute(
-          path: '/register',
-          builder: (context, state) => RegisterPage(),
-        ),
-        GoRoute(
-          path: '/login',
-          builder: (context, state) => LoginPage(),
-        ),
-        GoRoute(
-          path: '/category',
-          builder: (context, state) => CategoryPage(),
-        ),
-        GoRoute(
-          path: '/recipe',
-          builder: (context, state) => RecipePage(),
-        ),
-        GoRoute(
-          path: '/myrecipe',
-          builder: (context, state) => MyRecipePage(),
-        ),
-      ],
-    );
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -71,6 +70,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => RecipeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MyRecipeProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => CategoryProvider(),

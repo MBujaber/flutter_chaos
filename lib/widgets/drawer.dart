@@ -39,12 +39,29 @@ class _AppDrawerState extends State<AppDrawer> {
                 context.push('/register');
               },
             ),
+          ListTile(
+            title: Text('All Categories'),
+            onTap: () {
+              context.push('/category');
+            },
+          ),
+          ListTile(
+            title: Text('All Recipes'),
+            onTap: () {
+              context.push('/recipe');
+            },
+          ),
           if (context.watch<AuthProvider>().username != null)
             ListTile(
               title: Text('My Recipes'),
               onTap: () {
                 context.push('/myrecipe');
               },
+            ),
+          if (context.watch<AuthProvider>().username != null)
+            ListTile(
+              title: Text('Create a Category'),
+              onTap: () {},
             ),
           if (context.watch<AuthProvider>().username != null)
             ListTile(

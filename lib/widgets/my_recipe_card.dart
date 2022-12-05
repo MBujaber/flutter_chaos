@@ -1,7 +1,5 @@
 import 'package:chaos_app/models/recipe.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 class MyRecipeCard extends StatelessWidget {
   final Recipe recipe;

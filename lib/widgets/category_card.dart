@@ -1,7 +1,5 @@
 import 'package:chaos_app/models/category.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 class CategoryCard extends StatelessWidget {
   final Category category;

@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import '../services/client.dart';
 import '../models/recipe.dart';
 
-class RecipeProvider extends ChangeNotifier {
+class MyRecipeProvider extends ChangeNotifier {
   List<Recipe> recipes = [];
   bool isLoading = false;
 
-  RecipeProvider() {
-    loadRecipes();
+  MyRecipeProvider() {
+    loadMyRecipes();
   }
 
-  Future<void> loadRecipes() async {
+  Future<void> loadMyRecipes() async {
     isLoading = true;
     recipes.clear();
 
-    var response = await Client.dio.get("/recipe/");
+    var response = await Client.dio.get("/myrecipe/");
     var recipeJsonList = response.data as List;
 
     recipes =
