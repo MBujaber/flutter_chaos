@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +13,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sign in"),
+        title: const Text("Log in"),
       ),
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -34,13 +33,15 @@ class LoginPage extends StatelessWidget {
               padding: const EdgeInsets.only(top: 22),
               child: ElevatedButton(
                 onPressed: () async {
-                  var authProvider = context.read<AuthProvider>();
                   // var authProvider = Provider.of<AuthProvider>(context, listen: false);
-                  var success = await authProvider.login(
+                  var success = await context.read<AuthProvider>().login(
                       username: usernameController.text,
                       password: passwordController.text);
                   // username: usernameController.text,
                   // password: passwordController.text));
+                  print("++++");
+                  print(success);
+                  print("=====");
 
                   if (success) {
                     context.pop();
