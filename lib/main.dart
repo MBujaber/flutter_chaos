@@ -16,7 +16,7 @@ void main() async {
 
   runApp(MyApp(
     authProvider: authProvider,
-    initialRoute: isAuth ? '/' : "/login",
+    initialRoute: '/',
   ));
 }
 

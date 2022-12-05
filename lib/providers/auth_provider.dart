@@ -13,7 +13,7 @@ class AuthProvider extends ChangeNotifier {
     required String password,
   }) async {
     try {
-      var response = await Client.dio.post("register/", data: {
+      var response = await Client.dio.post("/register/", data: {
         'username': username,
         'password': password,
       });
@@ -23,6 +23,7 @@ class AuthProvider extends ChangeNotifier {
       Client.dio.options.headers[HttpHeaders.authorizationHeader] =
           "Bearer $token";
       this.username = username;
+      notifyListeners();
 
       var pref = await SharedPreferences.getInstance();
       await pref.setString("token", token);
@@ -48,6 +49,7 @@ class AuthProvider extends ChangeNotifier {
 
     var tokenMap = JwtDecoder.decode(token);
     username = tokenMap['username'];
+    notifyListeners();
     print(username); // for testing
     return true;
   }
@@ -56,7 +58,7 @@ class AuthProvider extends ChangeNotifier {
       {required String username, required String password}) async {
     late String token;
     try {
-      Response response = await Client.dio.post('login/', data: {
+      Response response = await Client.dio.post('/login/', data: {
         "username": username,
         "password": password,
       });
@@ -64,10 +66,14 @@ class AuthProvider extends ChangeNotifier {
       Client.dio.options.headers["Authorization"] = "Bearer $token";
       var ref = await SharedPreferences.getInstance();
       ref.setString("token", token);
+      this.username = username;
+      notifyListeners();
       return true;
     } on DioError catch (error) {
       print(error);
     }
+    notifyListeners();
+
     return false;
   }
 
@@ -76,6 +82,7 @@ class AuthProvider extends ChangeNotifier {
     await prefs.remove("token");
     this.hasToken(); // for testing
     // token = "";
+    this.username = null;
     notifyListeners();
   }
 }
