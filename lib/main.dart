@@ -1,6 +1,7 @@
 import 'package:chaos_app/pages/home.dart';
 import 'package:chaos_app/pages/category_page.dart';
 import 'package:chaos_app/pages/login_page.dart';
+import 'package:chaos_app/pages/my_recipe_page.dart';
 import 'package:chaos_app/pages/recipe_page.dart';
 import 'package:chaos_app/pages/register_page.dart';
 import 'package:chaos_app/providers/auth_provider.dart';
@@ -56,6 +57,10 @@ class MyApp extends StatelessWidget {
         GoRoute(
           path: '/recipe',
           builder: (context, state) => RecipePage(),
+        ),
+        GoRoute(
+          path: '/myrecipe',
+          builder: (context, state) => MyRecipePage(),
         ),
       ],
     );

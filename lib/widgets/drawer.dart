@@ -42,7 +42,9 @@ class _AppDrawerState extends State<AppDrawer> {
           if (context.watch<AuthProvider>().username != null)
             ListTile(
               title: Text('My Recipes'),
-              onTap: () {},
+              onTap: () {
+                context.push('/myrecipe');
+              },
             ),
           if (context.watch<AuthProvider>().username != null)
             ListTile(

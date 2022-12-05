@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class RecipeCard extends StatelessWidget {
+class MyRecipeCard extends StatelessWidget {
   final Recipe recipe;
-  const RecipeCard({Key? key, required this.recipe}) : super(key: key);
+  const MyRecipeCard({Key? key, required this.recipe}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +29,19 @@ class RecipeCard extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {},
                     child: Text(recipe.title),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      IconButton(
+                          onPressed: () {}, icon: const Icon(Icons.edit)),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ))
+                    ],
                   ),
                 ],
               ),
