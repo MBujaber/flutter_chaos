@@ -1,5 +1,6 @@
 import 'package:chaos_app/models/recipe.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/my_recipe_provider.dart';
@@ -34,8 +35,13 @@ class MyRecipeCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      IconButton(
-                          onPressed: () {}, icon: const Icon(Icons.edit)),
+                      InkWell(
+                        onTap: () =>
+                            context.push('/editmyrecipe', extra: recipe),
+                        child: Icon(
+                          Icons.edit,
+                        ),
+                      ),
                       InkWell(
                         onTap: () => context
                             .read<MyRecipeProvider>()
