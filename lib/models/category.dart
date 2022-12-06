@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 class Category {
-  int? id;
+  int id;
   String title;
   String image;
 
   Category({
-    this.id,
+    required this.id,
     required this.title,
     required this.image,
   });
@@ -21,7 +21,7 @@ class Category {
 
   factory Category.fromMap(Map<String, dynamic> map) {
     return Category(
-      id: map['id']?.toInt(),
+      id: map['id']?.toInt() ?? 0,
       title: map['title'] ?? '',
       image: map['image'] ?? '',
     );

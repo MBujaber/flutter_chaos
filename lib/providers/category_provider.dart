@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../services/client.dart';
 import '../models/category.dart';
@@ -23,5 +26,18 @@ class CategoryProvider extends ChangeNotifier {
 
     isLoading = false;
     notifyListeners();
+  }
+
+  Future<void> addCategory({
+    required String title,
+    required File image,
+  }) async {
+    var response = await Client.dio.post("/category/create/",
+        data: FormData.fromMap({
+          "title": title,
+          "image": await MultipartFile.fromFile(image.path),
+        }));
+
+    loadCategories();
   }
 }

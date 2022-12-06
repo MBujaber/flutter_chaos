@@ -1,10 +1,13 @@
 import 'package:chaos_app/models/recipe.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/my_recipe_provider.dart';
 
 class MyRecipeCard extends StatelessWidget {
+  final Color? iconColor;
+  const MyRecipeCard({required this.recipe, super.key, this.iconColor});
   final Recipe recipe;
-  const MyRecipeCard({Key? key, required this.recipe}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -33,12 +36,15 @@ class MyRecipeCard extends StatelessWidget {
                     children: [
                       IconButton(
                           onPressed: () {}, icon: const Icon(Icons.edit)),
-                      IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.delete,
-                            color: Colors.red,
-                          ))
+                      InkWell(
+                        onTap: () => context
+                            .read<MyRecipeProvider>()
+                            .deleteMyRecipes(recipe.id),
+                        child: Icon(
+                          Icons.delete,
+                          color: iconColor ?? Colors.red,
+                        ),
+                      ),
                     ],
                   ),
                 ],

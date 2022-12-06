@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../providers/my_recipe_provider.dart';
 import '../widgets/drawer.dart';
@@ -38,7 +39,9 @@ class _MyRecipePageState extends State<MyRecipePage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CupertinoButton.filled(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.push('/addrecipe');
+                        },
                         child: const Padding(
                           padding: EdgeInsets.all(0.0),
                           child: Text("Create New Recipe"),

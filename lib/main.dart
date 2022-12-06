@@ -1,3 +1,5 @@
+import 'package:chaos_app/pages/add_category_page.dart';
+import 'package:chaos_app/pages/add_recipe_page.dart';
 import 'package:chaos_app/pages/home.dart';
 import 'package:chaos_app/pages/category_page.dart';
 import 'package:chaos_app/pages/login_page.dart';
@@ -45,12 +47,20 @@ final router = GoRouter(
       builder: (context, state) => CategoryPage(),
     ),
     GoRoute(
+      path: '/addcategory',
+      builder: (context, state) => AddCategoryPage(),
+    ),
+    GoRoute(
       path: '/recipe',
       builder: (context, state) => RecipePage(),
     ),
     GoRoute(
       path: '/myrecipe',
       builder: (context, state) => MyRecipePage(),
+    ),
+    GoRoute(
+      path: '/addrecipe',
+      builder: (context, state) => AddRecipePage(),
     ),
   ],
 );
