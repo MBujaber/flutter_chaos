@@ -4,17 +4,19 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../models/category.dart';
+import '../models/recipe.dart';
 import '../providers/category_provider.dart';
 import '../providers/my_recipe_provider.dart';
 
-class AddRecipePage extends StatefulWidget {
-  const AddRecipePage({super.key});
+class EditRecipePage extends StatefulWidget {
+  final Recipe recipe;
+  EditRecipePage({required this.recipe, super.key});
 
   @override
-  State<AddRecipePage> createState() => _AddRecipePageState();
+  State<EditRecipePage> createState() => _EditRecipePageState();
 }
 
-class _AddRecipePageState extends State<AddRecipePage> {
+class _EditRecipePageState extends State<EditRecipePage> {
   final titleController = TextEditingController();
   final ingredientController = TextEditingController();
 
@@ -27,9 +29,21 @@ class _AddRecipePageState extends State<AddRecipePage> {
   var formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    super.initState();
+    titleController.text = widget.recipe.title;
+    value = context
+        .read<CategoryProvider>()
+        .categories
+        .firstWhere((element) => element.id == widget.recipe.category);
+
+    // ingredientController.text = widget.recipe.ingredient as String;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Create New Recipe")),
+      appBar: AppBar(title: Text("Edit Recipe")),
       body: SafeArea(
         child: Form(
           key: formKey,
@@ -99,7 +113,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
                       imageError = null;
                     });
                   },
-                  child: Text("Add Image")),
+                  child: Text("Edit Image")),
               if (imageError != null)
                 Text(
                   imageError!,
@@ -117,7 +131,8 @@ class _AddRecipePageState extends State<AddRecipePage> {
                     }
 
                     if (formKey.currentState!.validate() && imageFile != null) {
-                      await context.read<MyRecipeProvider>().addRecipe(
+                      await context.read<MyRecipeProvider>().editRecipe(
+                            id: widget.recipe.id,
                             title: titleController.text,
                             ingredient: ingredientController.text,
                             category: value!.id,
@@ -127,7 +142,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
                       context.go('/myrecipe');
                     }
                   },
-                  child: Text("Add Recipe"))
+                  child: Text("Edit Recipe"))
             ],
           ),
         ),

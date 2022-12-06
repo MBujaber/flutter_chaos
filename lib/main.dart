@@ -1,5 +1,6 @@
 import 'package:chaos_app/pages/add_category_page.dart';
 import 'package:chaos_app/pages/add_recipe_page.dart';
+import 'package:chaos_app/pages/edit_recipe_page.dart';
 import 'package:chaos_app/pages/home.dart';
 import 'package:chaos_app/pages/category_page.dart';
 import 'package:chaos_app/pages/login_page.dart';
@@ -13,6 +14,7 @@ import 'package:chaos_app/providers/recipe_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'models/recipe.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,6 +63,12 @@ final router = GoRouter(
     GoRoute(
       path: '/addrecipe',
       builder: (context, state) => AddRecipePage(),
+    ),
+    GoRoute(
+      path: '/editmyrecipe',
+      builder: (context, state) => EditRecipePage(
+        recipe: state.extra as Recipe,
+      ),
     ),
   ],
 );

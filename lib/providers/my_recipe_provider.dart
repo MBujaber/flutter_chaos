@@ -35,7 +35,7 @@ class MyRecipeProvider extends ChangeNotifier {
   Future<void> addRecipe({
     required String title,
     required String ingredient,
-    required String category,
+    required int category,
     required File image,
   }) async {
     var response = await Client.dio.post("/recipe/create/",
@@ -50,4 +50,22 @@ class MyRecipeProvider extends ChangeNotifier {
   }
 
   addCategory({required String title, required File image}) {}
+
+  Future<void> editRecipe({
+    required int id,
+    required String title,
+    required String ingredient,
+    required int category,
+    required File image,
+  }) async {
+    var response = await Client.dio.put("/recipe/edit/${id}/",
+        data: FormData.fromMap({
+          "title": title,
+          "ingredient": ingredient,
+          "category": category,
+          "image": await MultipartFile.fromFile(image.path),
+        }));
+
+    loadMyRecipes();
+  }
 }
