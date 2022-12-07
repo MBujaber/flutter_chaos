@@ -124,7 +124,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
                             image: imageFile!,
                           );
 
-                      context.go('/myrecipe');
+                      context.push('/myrecipe');
                     }
                   },
                   child: Text("Add Recipe"))

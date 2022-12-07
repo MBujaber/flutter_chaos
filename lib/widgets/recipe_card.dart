@@ -28,6 +28,9 @@ class RecipeCard extends StatelessWidget {
                     onPressed: () {},
                     child: Text(recipe.title),
                   ),
+
+                  Text(recipe.ingredient.toString()),
+                  Text(recipe.category.toString()),
                 ],
               ),
             ),

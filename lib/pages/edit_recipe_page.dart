@@ -32,6 +32,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
   void initState() {
     super.initState();
     titleController.text = widget.recipe.title;
+    // ingredientController.text = "1";
     value = context
         .read<CategoryProvider>()
         .categories
@@ -94,7 +95,8 @@ class _EditRecipePageState extends State<EditRecipePage> {
                   height: 100,
                 )
               else
-                Container(
+                Image.network(
+                  widget.recipe.image,
                   width: 100,
                   height: 100,
                 ),
@@ -142,7 +144,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
                       context.go('/myrecipe');
                     }
                   },
-                  child: Text("Edit Recipe"))
+                  child: Text("Save"))
             ],
           ),
         ),

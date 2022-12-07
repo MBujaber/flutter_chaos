@@ -1,14 +1,17 @@
 import 'package:chaos_app/pages/add_category_page.dart';
+import 'package:chaos_app/pages/add_ingredient_page.dart';
 import 'package:chaos_app/pages/add_recipe_page.dart';
 import 'package:chaos_app/pages/edit_recipe_page.dart';
 import 'package:chaos_app/pages/home.dart';
 import 'package:chaos_app/pages/category_page.dart';
+import 'package:chaos_app/pages/ingredient_page.dart';
 import 'package:chaos_app/pages/login_page.dart';
 import 'package:chaos_app/pages/my_recipe_page.dart';
 import 'package:chaos_app/pages/recipe_page.dart';
 import 'package:chaos_app/pages/register_page.dart';
 import 'package:chaos_app/providers/auth_provider.dart';
 import 'package:chaos_app/providers/category_provider.dart';
+import 'package:chaos_app/providers/ingredient_provider.dart';
 import 'package:chaos_app/providers/my_recipe_provider.dart';
 import 'package:chaos_app/providers/recipe_provider.dart';
 import 'package:flutter/material.dart';
@@ -70,6 +73,14 @@ final router = GoRouter(
         recipe: state.extra as Recipe,
       ),
     ),
+    GoRoute(
+      path: '/ingredient',
+      builder: (context, state) => IngredientPage(),
+    ),
+    GoRoute(
+      path: '/addingredient',
+      builder: (context, state) => AddIngredientPage(),
+    ),
   ],
 );
 
@@ -94,7 +105,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => CategoryProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => IngredientProvider(),
+        ),
       ],
       child: MaterialApp.router(
         title: 'Flutter Demo',

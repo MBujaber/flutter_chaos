@@ -39,6 +39,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 context.push('/register');
               },
             ),
+          if (context.watch<AuthProvider>().username == null) Divider(),
           ListTile(
             title: Text('All Categories'),
             onTap: () {
@@ -51,6 +52,13 @@ class _AppDrawerState extends State<AppDrawer> {
               context.push('/recipe');
             },
           ),
+          ListTile(
+            title: Text('All Ingredients'),
+            onTap: () {
+              context.push('/ingredient');
+            },
+          ),
+          Divider(),
           if (context.watch<AuthProvider>().username != null)
             ListTile(
               title: Text('My Recipes'),
@@ -74,8 +82,10 @@ class _AppDrawerState extends State<AppDrawer> {
             ),
           if (context.watch<AuthProvider>().username != null)
             ListTile(
-              title: Text('Add an ingredient'),
-              onTap: () {},
+              title: Text('Add an Ingredients'),
+              onTap: () {
+                context.push('/addingredient');
+              },
             ),
           if (context.watch<AuthProvider>().username != null)
             ListTile(
