@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:chaos_app/models/ingredient.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import '../services/client.dart';
@@ -33,14 +34,14 @@ class MyRecipeProvider extends ChangeNotifier {
 
   Future<void> addRecipe({
     required String title,
-    required String ingredient,
+    required List<Ingredient> selectedIngredients,
     required int category,
     required File image,
   }) async {
     var response = await Client.dio.post("/recipe/create/",
         data: FormData.fromMap({
           "title": title,
-          "ingredient": ingredient,
+          "ingredient": selectedIngredients.map((e) => e.id).toList(),
           "category": category,
           "image": await MultipartFile.fromFile(image.path),
         }));

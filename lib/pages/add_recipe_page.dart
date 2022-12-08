@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'package:chaos_app/models/ingredient.dart';
+import 'package:chaos_app/providers/ingredient_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 import '../models/category.dart';
 import '../providers/category_provider.dart';
@@ -19,6 +22,8 @@ class _AddRecipePageState extends State<AddRecipePage> {
   final ingredientController = TextEditingController();
 
   Category? value;
+
+  List<Ingredient> selectedIngredients = [];
 
   File? imageFile;
 
@@ -46,19 +51,31 @@ class _AddRecipePageState extends State<AddRecipePage> {
                   return null;
                 },
               ),
-              TextFormField(
-                controller: ingredientController,
-                decoration: InputDecoration(hintText: "ingredient"),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Field is required";
-                  }
+              // TextFormField(
+              //   controller: ingredientController,
+              //   decoration: InputDecoration(hintText: "ingredient"),
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return "Field is required";
+              //     }
 
-                  if (value.length <= 0) {
-                    return "Description too short";
-                  }
+              //     if (value.length <= 0) {
+              //       return "Description too short";
+              //     }
 
-                  return null;
+              //     return null;
+              //   },
+              // ),
+              MultiSelectDialogField(
+                items: context
+                    .watch<IngredientProvider>()
+                    .ingredients
+                    .map((e) => MultiSelectItem(e, e.title))
+                    .toList(),
+                listType: MultiSelectListType.CHIP,
+                onConfirm: (values) {
+                  selectedIngredients = values;
+                  print(selectedIngredients.map((e) => e.id).join(", "));
                 },
               ),
               DropdownButton<Category>(
@@ -119,7 +136,7 @@ class _AddRecipePageState extends State<AddRecipePage> {
                     if (formKey.currentState!.validate() && imageFile != null) {
                       await context.read<MyRecipeProvider>().addRecipe(
                             title: titleController.text,
-                            ingredient: ingredientController.text,
+                            selectedIngredients: selectedIngredients,
                             category: value!.id,
                             image: imageFile!,
                           );
@@ -139,4 +156,8 @@ class _AddRecipePageState extends State<AddRecipePage> {
         value: item,
         child: Text(item.title),
       );
+}
+
+void a() {
+  var l = [4, 9, 0].join(","); // "4_9_0"
 }
