@@ -1,4 +1,5 @@
 import 'package:chaos_app/models/recipe.dart';
+import 'package:chaos_app/providers/recipe_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,6 @@ class RecipeCard extends StatefulWidget {
 
 class _RecipeCardState extends State<RecipeCard> {
   Category? category;
-  List<Ingredient> ingredients = [];
   List<Ingredient> ingredientsTitle = [];
 
   @override
@@ -28,21 +28,6 @@ class _RecipeCardState extends State<RecipeCard> {
         .read<CategoryProvider>()
         .categories
         .firstWhere((element) => element.id == widget.recipe.category);
-
-    ingredients = context
-        .read<IngredientProvider>()
-        .ingredients
-        .where((element) => element.id == widget.recipe.ingredient)
-        .toList();
-
-    ingredientsTitle = ingredients
-        .map(
-          (e) => e.title,
-        )
-        .cast<Ingredient>()
-        .toList();
-
-    // ingredientController.text = widget.recipe.ingredient as String;
   }
 
   @override
@@ -69,8 +54,22 @@ class _RecipeCardState extends State<RecipeCard> {
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
 
-                  Text(ingredientsTitle.toString()),
-                  Text(widget.recipe.ingredient.toString()),
+                  // Text(ingredientsTitle.toString()),
+                  Container(
+                    height: 50,
+                    width: 50,
+                    child: Text(
+                      context
+                          .watch<IngredientProvider>()
+                          .ingredients
+                          .where((element) =>
+                              widget.recipe.ingredient.contains(element.id))
+                          .toList()
+                          .map((e) => e.title)
+                          .join(' '),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                   Text('Category: ${category!.title.toString()}'),
                 ],
               ),

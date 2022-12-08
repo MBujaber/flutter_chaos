@@ -54,14 +54,14 @@ class MyRecipeProvider extends ChangeNotifier {
   Future<void> editRecipe({
     required int id,
     required String title,
-    required String ingredient,
+    required List<Ingredient> selectedIngredients,
     required int category,
     required File image,
   }) async {
     var response = await Client.dio.put("/recipe/edit/${id}/",
         data: FormData.fromMap({
           "title": title,
-          "ingredient": ingredient,
+          "ingredient": selectedIngredients.map((e) => e.id).toList(),
           "category": category,
           "image": await MultipartFile.fromFile(image.path),
         }));

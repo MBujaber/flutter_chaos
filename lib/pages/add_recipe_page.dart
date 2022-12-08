@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:chaos_app/models/ingredient.dart';
 import 'package:chaos_app/providers/ingredient_provider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -40,18 +41,20 @@ class _AddRecipePageState extends State<AddRecipePage> {
           key: formKey,
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  controller: titleController,
-                  decoration: InputDecoration(hintText: "Recipe name"),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Field is required";
-                    }
+              Container(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: titleController,
+                    decoration: InputDecoration(hintText: "Recipe name"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Field is required";
+                      }
 
-                    return null;
-                  },
+                      return null;
+                    },
+                  ),
                 ),
               ),
               // TextFormField(
@@ -69,21 +72,57 @@ class _AddRecipePageState extends State<AddRecipePage> {
               //     return null;
               //   },
               // ),
-              MultiSelectDialogField(
-                items: context
-                    .watch<IngredientProvider>()
-                    .ingredients
-                    .map((e) => MultiSelectItem(e, e.title))
-                    .toList(),
-                listType: MultiSelectListType.CHIP,
-                onConfirm: (values) {
-                  selectedIngredients = values;
-                  print(selectedIngredients.map((e) => e.id).join(", "));
-                },
+              Row(
+                children: [
+                  SizedBox(
+                    width: 370,
+                    child: MultiSelectDialogField(
+                      buttonIcon: Icon(
+                        Icons.arrow_drop_down_circle_outlined,
+                      ),
+
+                      // decoration: BoxDecoration(
+                      //   border: Border.all(
+                      //       color: Color.fromARGB(255, 89, 89, 89), width: 1.8),
+                      // ),
+                      title:
+                          Text("Ingredient List", textAlign: TextAlign.center),
+
+                      buttonText: Text(
+                        "Choose a ingredient",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 80, 78, 78),
+                          fontSize: 15,
+                        ),
+                      ),
+                      items: context
+                          .watch<IngredientProvider>()
+                          .ingredients
+                          .map((e) => MultiSelectItem(e, e.title))
+                          .toList(),
+                      listType: MultiSelectListType.CHIP,
+                      onConfirm: (values) {
+                        selectedIngredients = values;
+                        print(selectedIngredients.map((e) => e.id).join(", "));
+                      },
+                    ),
+                  ),
+                  Spacer(),
+                  CupertinoButton(
+                    child: Icon(Icons.add),
+                    onPressed: () {
+                      context.push('/addingredient');
+                    },
+                  ),
+                ],
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10.0),
                 child: DropdownButton<Category>(
+                    icon: Icon(
+                      Icons.arrow_drop_down_circle_outlined,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    ),
                     isExpanded: true,
                     hint: Text("Choose a category"),
                     value: value,
@@ -164,8 +203,4 @@ class _AddRecipePageState extends State<AddRecipePage> {
         value: item,
         child: Text(item.title),
       );
-}
-
-void a() {
-  var l = [4, 9, 0].join(","); // "4_9_0"
 }

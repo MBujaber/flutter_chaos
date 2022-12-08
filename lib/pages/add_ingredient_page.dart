@@ -46,7 +46,7 @@ class _AddIngredientPageState extends State<AddIngredientPage> {
                         await context
                             .read<IngredientProvider>()
                             .addIngredient(title: titleController.text);
-                        context.push('/ingredient');
+                        context.pop();
                         // context.pop();
                         print("done");
                       }

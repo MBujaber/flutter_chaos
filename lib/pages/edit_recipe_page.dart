@@ -21,12 +21,10 @@ class EditRecipePage extends StatefulWidget {
 
 class _EditRecipePageState extends State<EditRecipePage> {
   final titleController = TextEditingController();
-  final ingredientController = TextEditingController();
 
   Category? value;
 
   List<Ingredient> selectedIngredients = [];
-  List<Ingredient> preSelectedIngredients = [];
 
   File? imageFile;
 
@@ -44,7 +42,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
         .categories
         .firstWhere((element) => element.id == widget.recipe.category);
 
-    preSelectedIngredients = context
+    selectedIngredients = context
         .read<IngredientProvider>()
         .ingredients
         .where((element) => element.id == widget.recipe.ingredient)
@@ -76,28 +74,29 @@ class _EditRecipePageState extends State<EditRecipePage> {
                   },
                 ),
               ),
-              // TextFormField(
-              //   controller: ingredientController,
-              //   decoration: InputDecoration(hintText: "ingredient"),
-              //   validator: (value) {
-              //     if (value == null || value.isEmpty) {
-              //       return "Field is required";
-              //     }
-
-              //     if (value.length <= 0) {
-              //       return "Description too short";
-              //     }
-
-              //     return null;
-              //   },
-              // ),
-              MultiSelectDialogField(
+              MultiSelectDialogField<Ingredient>(
+                buttonIcon: Icon(
+                  Icons.arrow_drop_down_circle_outlined,
+                ),
+                title: Text("Ingredient List"),
+                buttonText: Text(
+                  "Choose a ingredient",
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 80, 78, 78),
+                    fontSize: 15,
+                  ),
+                ),
                 items: context
                     .watch<IngredientProvider>()
                     .ingredients
                     .map((e) => MultiSelectItem(e, e.title))
                     .toList(),
-                initialValue: preSelectedIngredients,
+                initialValue: context
+                    .watch<IngredientProvider>()
+                    .ingredients
+                    .where((element) =>
+                        widget.recipe.ingredient.contains(element.id))
+                    .toList(),
                 listType: MultiSelectListType.CHIP,
                 onConfirm: (values) {
                   selectedIngredients = values;
@@ -105,8 +104,12 @@ class _EditRecipePageState extends State<EditRecipePage> {
                 },
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10.0),
                 child: DropdownButton<Category>(
+                    icon: Icon(
+                      Icons.arrow_drop_down_circle_outlined,
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    ),
                     isExpanded: true,
                     value: value,
                     items: context
@@ -168,7 +171,7 @@ class _EditRecipePageState extends State<EditRecipePage> {
                       await context.read<MyRecipeProvider>().editRecipe(
                             id: widget.recipe.id,
                             title: titleController.text,
-                            ingredient: ingredientController.text,
+                            selectedIngredients: selectedIngredients,
                             category: value!.id,
                             image: imageFile!,
                           );
