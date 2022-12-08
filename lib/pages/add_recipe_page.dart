@@ -40,16 +40,19 @@ class _AddRecipePageState extends State<AddRecipePage> {
           key: formKey,
           child: Column(
             children: [
-              TextFormField(
-                controller: titleController,
-                decoration: InputDecoration(hintText: "Title"),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Field is required";
-                  }
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: titleController,
+                  decoration: InputDecoration(hintText: "Recipe name"),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Field is required";
+                    }
 
-                  return null;
-                },
+                    return null;
+                  },
+                ),
               ),
               // TextFormField(
               //   controller: ingredientController,
@@ -78,18 +81,23 @@ class _AddRecipePageState extends State<AddRecipePage> {
                   print(selectedIngredients.map((e) => e.id).join(", "));
                 },
               ),
-              DropdownButton<Category>(
-                  value: value,
-                  items: context
-                      .watch<CategoryProvider>()
-                      .categories
-                      .map(buildMenuItem)
-                      .toList(),
-                  onChanged: (value) => setState(
-                        () {
-                          this.value = value;
-                        },
-                      )),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DropdownButton<Category>(
+                    isExpanded: true,
+                    hint: Text("Choose a category"),
+                    value: value,
+                    items: context
+                        .watch<CategoryProvider>()
+                        .categories
+                        .map(buildMenuItem)
+                        .toList(),
+                    onChanged: (value) => setState(
+                          () {
+                            this.value = value;
+                          },
+                        )),
+              ),
               if (imageFile != null)
                 Image.file(
                   imageFile!,

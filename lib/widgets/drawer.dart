@@ -17,13 +17,16 @@ class _AppDrawerState extends State<AppDrawer> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.blue,
+          SizedBox(
+            height: 123,
+            child: DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.indigo,
+              ),
+              child: context.watch<AuthProvider>().username != null
+                  ? Text('Welcome ${context.watch<AuthProvider>().username}')
+                  : Text('Register or Log in to gain more access!'),
             ),
-            child: context.watch<AuthProvider>().username != null
-                ? Text('Welcome ${context.watch<AuthProvider>().username}')
-                : Text('Register or Log in to gain more access!'),
           ),
           if (context.watch<AuthProvider>().username == null)
             ListTile(
@@ -82,7 +85,7 @@ class _AppDrawerState extends State<AppDrawer> {
             ),
           if (context.watch<AuthProvider>().username != null)
             ListTile(
-              title: Text('Add an Ingredients'),
+              title: Text('Add an Ingredient'),
               onTap: () {
                 context.push('/addingredient');
               },

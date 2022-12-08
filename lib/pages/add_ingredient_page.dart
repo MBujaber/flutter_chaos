@@ -24,16 +24,19 @@ class _AddIngredientPageState extends State<AddIngredientPage> {
             key: formKey,
             child: Column(
               children: [
-                TextFormField(
-                  controller: titleController,
-                  decoration: InputDecoration(hintText: "Title"),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Field is required";
-                    }
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: titleController,
+                    decoration: InputDecoration(hintText: "Ingredient name"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Field is required";
+                      }
 
-                    return null;
-                  },
+                      return null;
+                    },
+                  ),
                 ),
                 ElevatedButton(
                     onPressed: () async {

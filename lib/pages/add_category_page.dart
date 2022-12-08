@@ -30,16 +30,19 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
             key: formKey,
             child: Column(
               children: [
-                TextFormField(
-                  controller: titleController,
-                  decoration: InputDecoration(hintText: "Title"),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return "Field is required";
-                    }
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextFormField(
+                    controller: titleController,
+                    decoration: InputDecoration(hintText: "Category name"),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Field is required";
+                      }
 
-                    return null;
-                  },
+                      return null;
+                    },
+                  ),
                 ),
                 if (imageFile != null)
                   Image.file(

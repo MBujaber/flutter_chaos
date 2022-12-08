@@ -2,10 +2,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 import '../models/category.dart';
+import '../models/ingredient.dart';
 import '../models/recipe.dart';
 import '../providers/category_provider.dart';
+import '../providers/ingredient_provider.dart';
 import '../providers/my_recipe_provider.dart';
 
 class EditRecipePage extends StatefulWidget {
@@ -21,6 +24,9 @@ class _EditRecipePageState extends State<EditRecipePage> {
   final ingredientController = TextEditingController();
 
   Category? value;
+
+  List<Ingredient> selectedIngredients = [];
+  List<Ingredient> preSelectedIngredients = [];
 
   File? imageFile;
 
@@ -38,6 +44,12 @@ class _EditRecipePageState extends State<EditRecipePage> {
         .categories
         .firstWhere((element) => element.id == widget.recipe.category);
 
+    preSelectedIngredients = context
+        .read<IngredientProvider>()
+        .ingredients
+        .where((element) => element.id == widget.recipe.ingredient)
+        .toList();
+
     // ingredientController.text = widget.recipe.ingredient as String;
   }
 
@@ -50,44 +62,64 @@ class _EditRecipePageState extends State<EditRecipePage> {
           key: formKey,
           child: Column(
             children: [
-              TextFormField(
-                controller: titleController,
-                decoration: InputDecoration(hintText: "Title"),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Field is required";
-                  }
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: titleController,
+                  decoration: InputDecoration(hintText: "Title"),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Field is required";
+                    }
 
-                  return null;
+                    return null;
+                  },
+                ),
+              ),
+              // TextFormField(
+              //   controller: ingredientController,
+              //   decoration: InputDecoration(hintText: "ingredient"),
+              //   validator: (value) {
+              //     if (value == null || value.isEmpty) {
+              //       return "Field is required";
+              //     }
+
+              //     if (value.length <= 0) {
+              //       return "Description too short";
+              //     }
+
+              //     return null;
+              //   },
+              // ),
+              MultiSelectDialogField(
+                items: context
+                    .watch<IngredientProvider>()
+                    .ingredients
+                    .map((e) => MultiSelectItem(e, e.title))
+                    .toList(),
+                initialValue: preSelectedIngredients,
+                listType: MultiSelectListType.CHIP,
+                onConfirm: (values) {
+                  selectedIngredients = values;
+                  print(selectedIngredients.map((e) => e.id).join(", "));
                 },
               ),
-              TextFormField(
-                controller: ingredientController,
-                decoration: InputDecoration(hintText: "ingredient"),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return "Field is required";
-                  }
-
-                  if (value.length <= 0) {
-                    return "Description too short";
-                  }
-
-                  return null;
-                },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DropdownButton<Category>(
+                    isExpanded: true,
+                    value: value,
+                    items: context
+                        .watch<CategoryProvider>()
+                        .categories
+                        .map(buildMenuItem)
+                        .toList(),
+                    onChanged: (value) => setState(
+                          () {
+                            this.value = value;
+                          },
+                        )),
               ),
-              DropdownButton<Category>(
-                  value: value,
-                  items: context
-                      .watch<CategoryProvider>()
-                      .categories
-                      .map(buildMenuItem)
-                      .toList(),
-                  onChanged: (value) => setState(
-                        () {
-                          this.value = value;
-                        },
-                      )),
               if (imageFile != null)
                 Image.file(
                   imageFile!,

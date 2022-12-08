@@ -1,3 +1,4 @@
+import 'package:chaos_app/models/recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../widgets/drawer.dart';

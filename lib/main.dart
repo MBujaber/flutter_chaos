@@ -17,6 +17,7 @@ import 'package:chaos_app/providers/recipe_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'models/category.dart';
 import 'models/recipe.dart';
 
 void main() async {
@@ -113,7 +114,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.indigo,
         ),
         routerConfig: router,
       ),
