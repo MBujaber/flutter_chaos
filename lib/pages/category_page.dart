@@ -35,17 +35,17 @@ class _CategoryPageState extends State<CategoryPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(4),
+                      padding: const EdgeInsets.all(6),
                       child: LayoutBuilder(
                         builder: (context, c) {
                           return GridView.builder(
                             shrinkWrap: true,
                             gridDelegate:
-                                SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 400,
-                              childAspectRatio: 0.8,
-                              mainAxisSpacing: 5,
-                              crossAxisSpacing: 5,
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 4,
+                              mainAxisSpacing: 4,
+                              mainAxisExtent: 200,
                             ),
                             physics:
                                 const NeverScrollableScrollPhysics(), // <- Here

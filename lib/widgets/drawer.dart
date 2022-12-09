@@ -18,7 +18,7 @@ class _AppDrawerState extends State<AppDrawer> {
         padding: EdgeInsets.zero,
         children: [
           SizedBox(
-            height: 123,
+            height: 111,
             child: DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.indigo,

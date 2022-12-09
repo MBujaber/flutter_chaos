@@ -33,48 +33,71 @@ class _RecipeCardState extends State<RecipeCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      shadowColor: Colors.indigo,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      elevation: 7,
+      margin: EdgeInsets.all(4),
+      // shadowColor: Colors.indigo,
       child: Column(
         children: [
-          Expanded(
+          ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15),
+              topRight: Radius.circular(15),
+            ),
             child: Image.network(
               widget.recipe.image,
+              height: 150,
               fit: BoxFit.cover,
               width: double.infinity,
             ),
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(2.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   // Text(category.title),
-                  Text(widget.recipe.title,
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  Text(
+                    widget.recipe.title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.ellipsis,
+                  ),
 
                   // Text(ingredientsTitle.toString()),
-                  Container(
-                    height: 50,
-                    width: 50,
-                    child: Text(
-                      context
-                          .watch<IngredientProvider>()
-                          .ingredients
-                          .where((element) =>
-                              widget.recipe.ingredient.contains(element.id))
-                          .toList()
-                          .map((e) => e.title)
-                          .join(' '),
-                      overflow: TextOverflow.ellipsis,
+
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text('Category: ${category!.title.toString()}'),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Container(
+                      height: 30,
+                      width: 30,
+                      child: Text(
+                        "Ingredient: ${context.watch<IngredientProvider>().ingredients.where((element) => widget.recipe.ingredient.contains(element.id)).toList().map((e) => e.title).join(' - ')}",
+                        // child: Text(
+                        //   context
+                        //       .watch<IngredientProvider>()
+                        //       .ingredients
+                        //       .where((element) =>
+                        //           widget.recipe.ingredient.contains(element.id))
+                        //       .toList()
+                        //       .map((e) => e.title)
+                        //       .join(' - '),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
-                  Text('Category: ${category!.title.toString()}'),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

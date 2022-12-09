@@ -1,12 +1,14 @@
 import 'package:chaos_app/pages/add_category_page.dart';
 import 'package:chaos_app/pages/add_ingredient_page.dart';
 import 'package:chaos_app/pages/add_recipe_page.dart';
+import 'package:chaos_app/pages/category_details.dart';
 import 'package:chaos_app/pages/edit_recipe_page.dart';
 import 'package:chaos_app/pages/home.dart';
 import 'package:chaos_app/pages/category_page.dart';
 import 'package:chaos_app/pages/ingredient_page.dart';
 import 'package:chaos_app/pages/login_page.dart';
 import 'package:chaos_app/pages/my_recipe_page.dart';
+import 'package:chaos_app/pages/recipe_details.dart';
 import 'package:chaos_app/pages/recipe_page.dart';
 import 'package:chaos_app/pages/register_page.dart';
 import 'package:chaos_app/providers/auth_provider.dart';
@@ -17,6 +19,7 @@ import 'package:chaos_app/providers/recipe_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'models/category.dart';
 import 'models/recipe.dart';
 
 void main() async {
@@ -72,6 +75,16 @@ final router = GoRouter(
       builder: (context, state) => EditRecipePage(
         recipe: state.extra as Recipe,
       ),
+    ),
+    GoRoute(
+      path: '/detailsrecipe',
+      builder: (context, state) => DetailsRecipe(
+        recipe: state.extra as Recipe,
+      ),
+    ),
+    GoRoute(
+      path: '/detailscategory',
+      builder: (context, state) => DetailsCategory(),
     ),
     GoRoute(
       path: '/ingredient',

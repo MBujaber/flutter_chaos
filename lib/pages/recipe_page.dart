@@ -1,5 +1,6 @@
 import 'package:chaos_app/models/recipe.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../widgets/drawer.dart';
 import '../widgets/recipe_card.dart';
@@ -52,10 +53,20 @@ class _RecipePageState extends State<RecipePage> {
                                 const NeverScrollableScrollPhysics(), // <- Here
                             itemCount:
                                 context.watch<RecipeProvider>().recipes.length,
-                            itemBuilder: (context, index) => RecipeCard(
-                              recipe: context
-                                  .watch<RecipeProvider>()
-                                  .recipes[index],
+                            itemBuilder: (context, index) => InkWell(
+                              onTap: () {
+                                context.push(
+                                  '/detailsrecipe',
+                                  extra: context
+                                      .read<RecipeProvider>()
+                                      .recipes[index],
+                                );
+                              },
+                              child: RecipeCard(
+                                recipe: context
+                                    .watch<RecipeProvider>()
+                                    .recipes[index],
+                              ),
                             ),
                           );
                         },

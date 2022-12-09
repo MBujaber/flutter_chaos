@@ -1,5 +1,7 @@
 import 'package:chaos_app/models/category.dart';
+import 'package:chaos_app/providers/recipe_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CategoryCard extends StatelessWidget {
   final Category category;
@@ -17,7 +19,7 @@ class CategoryCard extends StatelessWidget {
               width: double.infinity,
             ),
           ),
-          Expanded(
+          SizedBox(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -25,13 +27,15 @@ class CategoryCard extends StatelessWidget {
                 children: [
                   // Text(category.title),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.push('/detailscategory');
+                    },
                     child: Text(category.title),
                   ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -67,10 +67,20 @@ class _MyRecipePageState extends State<MyRecipePage> {
                                 .watch<MyRecipeProvider>()
                                 .recipes
                                 .length,
-                            itemBuilder: (context, index) => MyRecipeCard(
-                              recipe: context
-                                  .watch<MyRecipeProvider>()
-                                  .recipes[index],
+                            itemBuilder: (context, index) => InkWell(
+                              onTap: () {
+                                context.push(
+                                  '/detailsrecipe',
+                                  extra: context
+                                      .read<MyRecipeProvider>()
+                                      .recipes[index],
+                                );
+                              },
+                              child: MyRecipeCard(
+                                recipe: context
+                                    .watch<MyRecipeProvider>()
+                                    .recipes[index],
+                              ),
                             ),
                           );
                         },
