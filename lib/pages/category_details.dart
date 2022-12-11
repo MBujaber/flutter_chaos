@@ -1,22 +1,33 @@
+import 'package:chaos_app/models/category.dart';
+import 'package:chaos_app/models/recipe.dart';
+
+import 'package:chaos_app/providers/category_provider.dart';
 import 'package:chaos_app/providers/ingredient_provider.dart';
-import 'package:chaos_app/widgets/ingredients_card.dart';
+import 'package:chaos_app/providers/recipe_provider.dart';
+import 'package:chaos_app/widgets/Ingredients_card.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:chaos_app/widgets/drawer.dart';
 
 class DetailsCategory extends StatefulWidget {
-  const DetailsCategory({Key? key}) : super(key: key);
-
+  DetailsCategory({super.key});
+  // final Category category;
   @override
   State<DetailsCategory> createState() => _DetailsCategoryState();
 }
 
 class _DetailsCategoryState extends State<DetailsCategory> {
   @override
+  Recipe? recipe;
   void initState() {
     super.initState();
-    context.read<IngredientProvider>().loadIngredients();
+
+    //   recipe = context
+    //       .watch<RecipeProvider>()
+    //       .recipes
+    //       .firstWhere((element) => element.category == widget.category.id);
   }
 
   Widget build(BuildContext context) {
@@ -48,6 +59,7 @@ class _DetailsCategoryState extends State<DetailsCategory> {
             },
             child: Text("back"),
           ),
+          Text("")
         ],
       ),
     );

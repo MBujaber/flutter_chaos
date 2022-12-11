@@ -79,21 +79,3 @@ class _RecipePageState extends State<RecipePage> {
     );
   }
 }
-
-// GridView.builder(
-//                           shrinkWrap: true,
-//                           gridDelegate:
-//                               SliverGridDelegateWithFixedCrossAxisCount(
-//                             crossAxisCount: 2,
-//                             childAspectRatio:
-//                                 MediaQuery.of(context).size.width /
-//                                     (MediaQuery.of(context).size.height),
-//                           ),
-//                           physics:
-//                               const NeverScrollableScrollPhysics(), // <- Here
-//                           itemCount:
-//                               context.watch<RecipeProvider>().recipes.length,
-//                           itemBuilder: (context, index) => RecipeCard(
-//                               recipe: context
-//                                   .watch<RecipeProvider>()
-//                                   .recipes[index])),
